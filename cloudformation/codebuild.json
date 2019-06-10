@@ -1,12 +1,12 @@
 {
-  "AWSTemplateFormatVersion" : "2010-09-09",
+  "AWSTemplateFormatVersion" : "2019-06-09",
 
-  "Description" : "A codebuild system to run terraform ",
+  "Description" : "Codebuild Job to Run Terraform",
   "Parameters" : {
         "DataPartName" : {
-          "Description": "the data part name as appear in the cloudformation stack name",
+          "Description": "Datapart is project name",
           "Type": "String",
-          "Default" : "mydataname"
+          "Default" : "vulcan-poc"
         }
   },
   "Resources" : {
@@ -46,7 +46,7 @@
         "Type": "AWS::CodeBuild::Project",
         "Properties": {
           "Name":  { "Fn::Join" : [ "_", [ { "Ref" : "AWS::StackName" }, { "Ref" : "AWS::Region" } , "build_Application" ] ] },
-          "Description": "build the application part for cades using terraform",
+          "Description": "Build the application using terraform",
           "ServiceRole": {"Ref" : "Adminrole" },
           "Artifacts": {
             "Type": "no_artifacts"
@@ -63,7 +63,7 @@
             ]
           },
           "Source": {
-            "Location": "https://github.com/giuseppeborgese/run-terraform-inside-aws-codebuild",
+            "Location": "https://github.com/allenzahner/run-terraform-inside-aws-codebuild",
             "Type": "GITHUB"
           },
           "TimeoutInMinutes": 10,
